@@ -1,0 +1,35 @@
+R1(config)# ip access-list extended blockacl
+By using this command we have made an access-list named blockacl.
+
+R1(config-ext-nacl)# deny tcp 172.16.40.0 0.0.0.255 172.16.50.0 0.0.0.255 eq 21 
+R1(config-ext-nacl)# deny tcp any 172.16.50.0 0.0.0.255 eq 23
+R1(config-ext-nacl)# permit ip any any
+And then the same configuration we have done in numbered access-list.
+
+R1(config)# int fa0/1
+R1(config-if)# ip access-group blockacl out
+
+
+
+           - access-list ACL-ANSIBLE extended deny ip host {{ ip_address }} any log
+
+
+FastEthernet1/0
+
+ACL BLOCK TRAFFIC IN INGRESSO DI
+
+192.168.121.159
+
+VERSO L'INTERFACCIA Faster Etherner 1/0
+
+
+deny ip host 192.168.121.159 any log
+
+---
+router1(config)#ip access-list extended blockacl
+router1(config-ext-nacl)#deny ip host 192.168.121.159 any log
+router1(config)#interface FastEthernet 1/0
+router1(config-if)#ip access-group blockacl in
+
+
+

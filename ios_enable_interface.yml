@@ -1,0 +1,27 @@
+- name: Enable interface and assign ip
+  hosts: router1
+  connection: network_cli
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: make interface up
+      ios_interface:
+        name: FastEthernet1/0
+        enabled: True
+      notify: "save running-config to NVRAM"
+
+
+    - name: Set IPv4 address
+      ios_l3_interface:
+        name: FastEthernet1/0
+        ipv4: 192.168.121.100/24
+      notify: "save running-config to NVRAM"
+
+  handlers:
+    - name: save running-config to NVRAM
+      ios_command:
+        commands:
+          - command: 'write memory'
+            prompt: 'Overwrite the previous NVRAM configuration?\[confirm\]'
+            answer: 'yes'
+      when: not ansible_check_mode

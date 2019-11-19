@@ -1,0 +1,21 @@
+[ios]
+router1 ansible_host=192.168.122.100 
+
+[asa]
+asa1 ansible_host=192.168.122.101 
+
+[ios:vars]
+ansible_become_method=enable
+ansible_network_os=ios
+ansible_user=gsciorti
+ansible_password=password
+ansible_become_pass=password
+connection=network_cli
+
+[asa:vars]
+ansible_become_method=enable
+ansible_network_os=asa
+ansible_user=user
+ansible_password=password
+ansible_become_pass=password
+connection=network_cli

@@ -1,0 +1,13 @@
+- name: Save conf to nvram
+  hosts: router1
+  connection: network_cli
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: save running-config to NVRAM
+      ios_command: 
+        commands:
+          - command: 'write memory'
+            prompt: 'Overwrite the previous NVRAM configuration?\[confirm\]'
+            answer: 'yes'
+
