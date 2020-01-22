@@ -1,8 +1,8 @@
 [ios]
-router1 ansible_host=192.168.122.100 
+router1 ansible_host=192.168.122.100 ansible_ssh_args='-c aes256-cbc -c NOT VALIED VV -vvv'
 
 [asa]
-asa1 ansible_host=192.168.122.101 
+asa1 ansible_host=192.168.50.102 
 
 [ios:vars]
 ansible_become_method=enable
