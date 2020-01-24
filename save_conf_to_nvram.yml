@@ -6,6 +6,7 @@
   tasks:
     - name: save running-config to NVRAM
       ios_command: 
+        timeout: 15
         commands:
           - command: 'write memory'
             prompt: 'Overwrite the previous NVRAM configuration?\[confirm\]'

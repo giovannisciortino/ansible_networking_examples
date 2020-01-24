@@ -6,18 +6,34 @@
     acl_name: ANSIBLE-TEST
     comment: test_acl_1
     ip_address: 192.168.121.159
+    inteface_traffic_in_out: in
+    int_name: 'FastEthernet 1/0'
+    save_conf_to_nvram: true
+    remove_acl: 'False'
 
 
   tasks:
-    - name: Reorder current ACL so new entry can be added at right position
+    - name: apply acl to interface
       ios_config:
-          lines:
-            - remark {{comment}}
-            - deny ip host {{ip_address}} any log
-          parents: ip access-list extended {{acl_name}}
+        lines:
+          - ip access-group {{ acl_name }} {{ inteface_traffic_in_out }}
+        parents: 'interface {{int_name}}'
+#        save_when: modified
 
+    - name: add deny ip to acl
+      ios_config:
+        lines:
+          - '{% if remove_acl == "True" %}no {% endif %}deny ip host {{ip_address}} any log'
+        parents: ip access-list extended {{acl_name}}
+#        save_when: modified
 
-    - ios_config:
-          lines:
-            - ip access-group {{acl_name}} in
-          parents: interface FastEthernet 1/0
+    - name: save running-config to NVRAM
+      ios_command:
+        timeout: 60
+        commands:
+          - command: 'write memory'
+            prompt: 'Overwrite the previous NVRAM configuration?\[confirm\]'
+            answer: 'yes'
+      when: save_conf_to_nvram
+
+      

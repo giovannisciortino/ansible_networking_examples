@@ -1,0 +1,11 @@
+- name: Test connection - show version
+  hosts: asa1
+  connection: network_cli
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: "Show the ASA version"
+      asa_command:
+        commands:
+          - show version
+
