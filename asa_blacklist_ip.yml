@@ -1,0 +1,42 @@
+- hosts: asa1
+  gather_facts: no
+  connection: network_cli
+  become: true
+  vars:
+    acl_name: ACL-ANSIBLE
+    comment: test_acl_1
+    ip_address: 192.168.121.159
+    inteface_traffic_in_out: in
+    int_name: 'internal'
+    save_conf_to_nvram: true
+    remove_acl: 'False'
+
+
+  tasks:
+    - asa_acl:
+        lines:
+          - access-list {{acl_name}} extended deny ip host {{ip_address}} any log
+        #before: clear configure access-list ACL-ANSIBLE
+        match: strict
+        replace: block
+      when: remove_acl == 'False' 
+
+    - name: attach ASA acl on interface 
+      asa_config:
+        lines:
+          - no access-list {{acl_name}} extended deny ip host {{ip_address}} any log
+      when: remove_acl == 'True' 
+
+    - name: attach ASA acl on interface 
+      asa_config:
+        lines:
+          - access-group {{acl_name}} {{inteface_traffic_in_out}} interface {{ int_name }}
+      when: remove_acl == 'False' 
+
+    - name: save running-config to NVRAM
+      asa_command:
+        timeout: 60
+        commands:
+          - command: 'write memory'
+      when: save_conf_to_nvram
+      

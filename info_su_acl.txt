@@ -32,4 +32,16 @@ router1(config)#interface FastEthernet 1/0
 router1(config-if)#ip access-group blockacl in
 
 
+CISCO ASA:
+
+1) cancellare intera ACL:
+
+configure terminal
+clear configure access-list INSIDE_INBOUND
+
+2) aggiungere ACL:
+configure terminal
+access-group ACL-ANSIBLE in interface internal
+access-list ACL-ANSIBLE extended deny ip host 192.168.121.159 any log
+
 
