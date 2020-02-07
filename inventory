@@ -16,6 +16,4 @@ connection=network_cli
 ansible_become_method=enable
 ansible_network_os=asa
 ansible_user=user
-ansible_password=password
-ansible_become_pass=password
 connection=network_cli
