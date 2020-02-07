@@ -8,7 +8,7 @@
     ip_address: 192.168.121.159
     inteface_traffic_in_out: in
     int_name: 'FastEthernet 1/0'
-    save_conf_to_nvram: true
+    save_conf_to_nvram: false
     remove_acl: 'False'
 
 
