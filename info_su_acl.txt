@@ -45,3 +45,20 @@ access-group ACL-ANSIBLE in interface internal
 access-list ACL-ANSIBLE extended deny ip host 192.168.121.159 any log
 
 
+-------- ASA OBJECT GROUP INFO ----
+
+ASA1(config)# object-group network BLACKLIST_OBJECT_GROUP
+ASA1(config-network-object-group)# network-object host 192.168.121.159
+
+show object-group
+show object-group id BLACKLIST_OBJECT_GROUP
+
+
+
+
+access-list BLACKLIST_ACL extended deny ip host {{ip_address}} any log
+
+access-list BLACKLIST_ACL extended deny ip object-group BLACKLIST_OBJECT_GROUP any log
+access-group BLACKLIST_ACL in interface internal
+
+
