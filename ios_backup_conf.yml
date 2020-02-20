@@ -1,6 +1,5 @@
 - name: BACKUP ROUTER CONFIGURATIONS
   hosts: router1
-  connection: network_cli
   gather_facts: no
 
   tasks:

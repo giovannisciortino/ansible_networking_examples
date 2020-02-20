@@ -1,0 +1,17 @@
+- name: Add object group
+  hosts: all
+  connection: network_cli
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: configure network object-group
+      asa_og:
+        name: GRUPPO1
+        group_type: network-object
+        state: absent
+        description: ansible_test object-group description
+        host_ip:
+          - 8.8.8.8
+          - 8.8.4.4
+
+

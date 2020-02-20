@@ -1,5 +1,5 @@
 - name: Test connection - show version
-  hosts: asa1
+  hosts: all
   connection: network_cli
   gather_facts: no
   become: yes

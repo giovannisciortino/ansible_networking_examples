@@ -1,0 +1,21 @@
+- name: Test connection - show version
+  hosts: asa1
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: configure network object-group
+      asa_og:
+        name: BLACKLIST_OBJECT_GROUP
+        group_type: network-object
+        state: present
+        description: ansible_test object-group description
+        host_ip:
+          - 8.8.8.8
+
+    - name: save running-config to NVRAM
+      asa_command:
+        timeout: 60
+        commands:
+          - command: 'write memory'
+      when: save_conf_to_nvram
+

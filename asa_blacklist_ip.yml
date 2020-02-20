@@ -1,6 +1,5 @@
 - hosts: asa1
   gather_facts: no
-  connection: network_cli
   become: true
   vars:
     acl_name: ACL-ANSIBLE

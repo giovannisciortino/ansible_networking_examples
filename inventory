@@ -3,6 +3,7 @@ router1 ansible_host=192.168.122.100 ansible_ssh_args='-c aes256-cbc -c NOT VALI
 
 [asa]
 asa1 ansible_host=192.168.50.102 
+asa2 ansible_host=192.168.50.103
 
 [ios:vars]
 ansible_become_method=enable
@@ -10,10 +11,10 @@ ansible_network_os=ios
 ansible_user=gsciorti
 ansible_password=password
 ansible_become_pass=password
-connection=network_cli
+ansible_connection=network_cli
 
 [asa:vars]
 ansible_become_method=enable
 ansible_network_os=asa
 ansible_user=user
-connection=network_cli
+ansible_connection=network_cli
